@@ -11,15 +11,15 @@ std::ostream& operator << (std::ostream& os, const std::vector<T>& v)
     {
         os << " " << *ii;
     }
-    os << "]";
+    os << "]";     
     return os;
 }
 
-template < class T , class K>
-std::ostream& operator << (std::ostream& os, const std::pair<T,K>& v) 
+template < class T , class K, class G>
+std::ostream& operator << (std::ostream& os, const std::tuple<T,K,G>& v) 
 {
     os << "<";
-    os << v.first <<", "<< v.second ;
+    os <<get<0>(v) <<", "<< get<1>(v) << "," << get<2>(v);
     os << ">";
     return os;
 }
@@ -41,23 +41,24 @@ JS_Input::JS_Input(string file_name)
   n_task_per_Job.resize(n_Jobs);
   for (unsigned s = 0; s < n_Jobs; s++)
   {
-    std::vector<pair<unsigned,unsigned>> current_job;
+    std::vector<tuple<unsigned,unsigned,unsigned>> current_job;
     unsigned n_task;
     is >> n_task;
     n_task_per_Job[s]=n_task;
 
-    current_job.resize(n_task, make_pair(0,0));
+    tuple<unsigned,unsigned,unsigned> task_tuple(0,0,s);
+    current_job.resize(n_task, task_tuple);//s è  l'indice del job a cui appartiene questo task.
 
     unsigned aux;
     for (unsigned i = 0; i < n_task; ++i)
     {
       is >> aux;
-      current_job[i].first= aux; 
+      get<0>(current_job[i])= aux; //duration
     }
     for (unsigned i = 0; i < n_task; ++i)
     {
       is >> aux;
-      current_job[i].second= aux; 
+      get<1>(current_job[i])=  aux; //machine
     }
 
     tasks.push_back(current_job);

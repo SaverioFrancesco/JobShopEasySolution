@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <stdexcept>
+#include <tuple>
 
 using namespace std;
 
@@ -30,11 +31,12 @@ protected:
   // Insert your data members
   unsigned n_Jobs;
   unsigned n_Machines;
-  vector<vector<pair<unsigned,unsigned>>> tasks;
+  vector<vector<tuple<unsigned,unsigned,unsigned>>> tasks;
   vector<unsigned> release_dates;
   vector<int> due_dates;
 
   vector<unsigned> n_task_per_Job;
+
 
   //tasks[i].size();//number of task of job i;
 

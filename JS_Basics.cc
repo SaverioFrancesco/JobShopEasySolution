@@ -6,12 +6,21 @@ JS_State::JS_State(const JS_Input &my_in)
 {
   // Insert the code that initialized the data structure of the
   // state object based on the input object	
-  disjuntive_graphs.resize(my_in.n_Jobs);
+  disjuntive_graphs.resize(my_in.n_Machines);
+
   for (unsigned i = 0; i < my_in.n_Jobs; ++i)
   {
-    disjuntive_graphs[i].resize(my_in.n_task_per_Job[i]);
-  }
+    /* code */
+    for (unsigned j = 0; j < my_in.n_task_per_Job[i]; ++j)
+    {
+      /* code */
+      auto machine_id= get<1>( my_in.tasks[i][j] );
+      disjuntive_graphs[machine_id].push_back(my_in.tasks[i][j]);
+    }
 
+  }
+ 
+ 
 }
 
 JS_State& JS_State::operator=(const JS_State& st)
@@ -39,7 +48,6 @@ ostream& operator<<(ostream& os, const JS_State& st)
 {
   // Insert the code that writes the state object (for debugging)
   
-  os << st.disjuntive_graphs;
 
   return os;
 }
