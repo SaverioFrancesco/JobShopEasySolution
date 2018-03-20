@@ -33,7 +33,7 @@ JS_Input::JS_Input(string file_name)
   ifstream is(file_name.c_str());
   assert(!is.fail());
   
-  is >> n_Jobs>> n_Machines;
+  is >> n_Jobs >> n_Machines;
   
   tasks.resize(0);
   release_dates.resize(n_Jobs);
@@ -48,7 +48,7 @@ JS_Input::JS_Input(string file_name)
     std::vector<tuple<unsigned,unsigned,unsigned>> current_job;
     unsigned n_task;
     is >> n_task;
-    n_task_per_Job[s]=n_task;
+    n_task_per_Job[s] = n_task;
 
     tuple<unsigned,unsigned,unsigned> task_tuple(0,0,s);
     current_job.resize(n_task, task_tuple);//s è  l'indice del job a cui appartiene questo task.
@@ -57,25 +57,23 @@ JS_Input::JS_Input(string file_name)
     for (unsigned i = 0; i < n_task; ++i)
     {
       is >> aux;
-      get<0>(current_job[i])= aux; //duration
+      get<0>(current_job[i]) = aux; //duration
     }
     for (unsigned i = 0; i < n_task; ++i)
     {
       is >> aux;
-      get<1>(current_job[i])=  aux; //machine
+      get<1>(current_job[i]) = aux; //machine
       n_task_per_machine[aux]++;
     }
 
     tasks.push_back(current_job);
-
+    
     is >> aux;
     release_dates[s]=aux;
     int due;
     is >> due;
     due_dates[s]=due;
-
   }
-
 }
 
 ostream& operator<<(ostream& os, const JS_Input& pa)
@@ -99,14 +97,12 @@ JS_Output::JS_Output(const JS_Input& my_in)
 {
   // Insert the code that initialize the data structures of the
   // output object based in the input object
-  starting_times.resize(my_in.n_Jobs);
+  starting_times.resize(in.NumJobs());
 
-  for (unsigned i = 0; i < my_in.n_Jobs; ++i)
+  for (unsigned i = 0; i < in.NumJobs(); ++i)
   {
-    starting_times[i].resize(my_in.tasks[i].size()); 
+    starting_times[i].resize(in.tasks[i].size()); 
   }
-
-  //cerr << "JS_Output::JS_Output(const JS_Input&) not implemented yet" << endl;
 }
 
 JS_Output& JS_Output::operator=(const JS_Output& out)	
@@ -116,19 +112,15 @@ JS_Output& JS_Output::operator=(const JS_Output& out)
   // (excluding the reference to the input object, that is constant)
 
   this->starting_times = out.starting_times;
-
-  //throw logic_error("JS_Output::operator= not implemented yet");	
   return *this;
 }
 
 
 ostream& operator<<(ostream& os, const JS_Output& out)
 { 
- // Insert the code that writes the output object
-  //
+  // Insert the code that writes the output object
   
-  os<< out.starting_times;
-  //throw logic_error("operator<<(ostream& os, const JS_Output& out) not implemented yet");		
+  os << out.starting_times;
   return os;
 }
 

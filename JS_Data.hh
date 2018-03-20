@@ -38,9 +38,7 @@ protected:
 
   vector<unsigned> n_task_per_Job;
   vector<unsigned> n_task_per_machine;
-
   //tasks[i].size();//number of task of job i;
-
 };
 
 class JS_Output 
