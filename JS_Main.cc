@@ -35,9 +35,13 @@ int main(int argc, const char* argv[])
       return 1;
     }
   JS_Input in(instance);
-
   cout << in;
 
+  /*
+  JS_State st (in);
+  cout << st;
+  */
+  
   if (seed.IsSet())
     Random::Seed(seed);
   

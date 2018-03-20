@@ -20,8 +20,14 @@ class JS_Input
 public:
   JS_Input(string file_name);
   // Insert your getters
+  unsigned NumMachines() const { return n_Machines; }
+  unsigned NumJobs() const { return n_Jobs; }
+  tuple<unsigned,unsigned,unsigned> Task(unsigned j, unsigned t) const { return tasks[j][t]; }
+  unsigned ReleaseDate(unsigned j) const { return release_dates[j]; }
+  unsigned DueDate(unsigned j) const { return due_dates[j]; }
+  unsigned NumTasksOfMachine(unsigned m) const { return n_task_per_machine[m]; }
+  unsigned NumTaskOfJob(unsigned j) const { return n_task_per_Job[j]; }
 
-  
 protected:
   // Insert your data members
   unsigned n_Jobs;
@@ -31,6 +37,7 @@ protected:
   vector<int> due_dates;
 
   vector<unsigned> n_task_per_Job;
+  vector<unsigned> n_task_per_machine;
 
   //tasks[i].size();//number of task of job i;
 

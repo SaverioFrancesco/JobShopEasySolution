@@ -15,11 +15,11 @@ std::ostream& operator << (std::ostream& os, const std::vector<T>& v)
     return os;
 }
 
-template < class T , class K, class G>
+template < class T , class K, class G >
 std::ostream& operator << (std::ostream& os, const std::tuple<T,K,G>& v) 
 {
     os << "<";
-    os <<get<0>(v) <<", "<< get<1>(v) << "," << get<2>(v);
+    os << get<0>(v) <<", "<< get<1>(v) << ", " << get<2>(v);
     os << ">";
     return os;
 }
@@ -39,6 +39,10 @@ JS_Input::JS_Input(string file_name)
   release_dates.resize(n_Jobs);
   due_dates.resize(n_Jobs);
   n_task_per_Job.resize(n_Jobs);
+  n_task_per_machine.resize(n_Machines);
+  for (unsigned m = 0; m < n_Machines; m++)
+    n_task_per_machine[m] = 0;
+  
   for (unsigned s = 0; s < n_Jobs; s++)
   {
     std::vector<tuple<unsigned,unsigned,unsigned>> current_job;
@@ -59,6 +63,7 @@ JS_Input::JS_Input(string file_name)
     {
       is >> aux;
       get<1>(current_job[i])=  aux; //machine
+      n_task_per_machine[aux]++;
     }
 
     tasks.push_back(current_job);
@@ -76,14 +81,16 @@ JS_Input::JS_Input(string file_name)
 ostream& operator<<(ostream& os, const JS_Input& pa)
 {
   // Insert the code that write the input object (needed for debugging purposes)
+  os << "=== Input data ===" << endl;
+  os << "Num Jobs: " << pa.NumJobs() << ", Num Machines: " << pa.NumMachines() << endl;
 
-  os << pa.n_Jobs << " " << pa.n_Machines << endl;
-
-  for (unsigned s = 0; s < pa.n_Jobs; s++){
-    os << pa.tasks[s];
+  for (unsigned j = 0; j < pa.NumJobs(); j++){
+    os << "Job " << j << ", Num of Tasks: " << pa.NumTaskOfJob(j) << ", Tasks: ";
+    for (unsigned t = 0; t < pa.NumTaskOfJob(j); t++)
+     os << pa.tasks[j][t] << " ";
+    os << std::endl;
   }
-
-  //throw logic_error("operator<<(ostream& os, const JS_Input& pa) not implemented yet");	
+  
   return os;
 }
 
