@@ -80,7 +80,6 @@ ostream& operator<<(ostream& os, const JS_Input& pa)
   os << pa.n_Jobs << " " << pa.n_Machines << endl;
 
   for (unsigned s = 0; s < pa.n_Jobs; s++){
-
     os << pa.tasks[s];
   }
 
@@ -97,9 +96,7 @@ JS_Output::JS_Output(const JS_Input& my_in)
 
   for (unsigned i = 0; i < my_in.n_Jobs; ++i)
   {
-
     starting_times[i].resize(my_in.tasks[i].size()); 
-    /* code */
   }
 
   //cerr << "JS_Output::JS_Output(const JS_Input&) not implemented yet" << endl;

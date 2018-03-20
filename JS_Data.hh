@@ -12,15 +12,10 @@ using namespace std;
 
 class JS_Output;
 
-
-
 class JS_Input 
 {
-
   friend class JS_State;
-
   friend class JS_Output;
-  
   friend ostream& operator<<(ostream& os, const JS_Input& bs);
 public:
   JS_Input(string file_name);
@@ -37,11 +32,7 @@ protected:
 
   vector<unsigned> n_task_per_Job;
 
-
   //tasks[i].size();//number of task of job i;
-
-
-
 
 };
 
@@ -58,5 +49,5 @@ protected:
   // Insert your data members
   vector<vector<unsigned>> starting_times;//given i job, starting_times[i] tells the starting times of its tasks.
 
-  };
+};
 #endif
