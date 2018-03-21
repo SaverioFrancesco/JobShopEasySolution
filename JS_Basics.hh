@@ -15,6 +15,8 @@ class JS_State
 public:
   JS_State(const JS_Input &in);
   JS_State& operator=(const JS_State& s);
+  void Reset();
+  void SetTasksOfMachine(unsigned m, vector<tuple<unsigned,unsigned,unsigned>> v);
 protected:
   const JS_Input & in; 
   vector<vector<tuple<unsigned, unsigned, unsigned>>> disjuntive_graphs;

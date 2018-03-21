@@ -19,7 +19,7 @@ template < class T , class K, class G >
 std::ostream& operator << (std::ostream& os, const std::tuple<T,K,G>& v) 
 {
     os << "<";
-    os << get<0>(v) <<", "<< get<1>(v) << ", " << get<2>(v);
+    os << get<0>(v) << ", " << get<1>(v) << ", " << get<2>(v);
     os << ">";
     return os;
 }
@@ -40,6 +40,8 @@ JS_Input::JS_Input(string file_name)
   due_dates.resize(n_Jobs);
   n_task_per_Job.resize(n_Jobs);
   n_task_per_machine.resize(n_Machines);
+  tasks_of_machine.resize(n_Machines);
+    
   for (unsigned m = 0; m < n_Machines; m++)
     n_task_per_machine[m] = 0;
   
@@ -65,7 +67,7 @@ JS_Input::JS_Input(string file_name)
       get<1>(current_job[i]) = aux; //machine
       n_task_per_machine[aux]++;
     }
-
+    
     tasks.push_back(current_job);
     
     is >> aux;
@@ -74,6 +76,19 @@ JS_Input::JS_Input(string file_name)
     is >> due;
     due_dates[s]=due;
   }
+  
+  for (unsigned m = 0; m < n_Machines; m++)
+    tasks_of_machine[m].resize(n_task_per_machine[m]);
+  
+  vector<unsigned> vec_cont;
+  vec_cont.resize(n_Machines, 0);
+  
+  for (unsigned j = 0; j < n_Jobs; j++)
+    for (unsigned t = 0; t < n_task_per_Job[j]; t++)
+    {
+      unsigned machine_id = get<1>(tasks[j][t]);
+      tasks_of_machine[machine_id][vec_cont[machine_id]++] = tasks[j][t];
+    }
 }
 
 ostream& operator<<(ostream& os, const JS_Input& pa)

@@ -27,7 +27,8 @@ public:
   unsigned DueDate(unsigned j) const { return due_dates[j]; }
   unsigned NumTasksOfMachine(unsigned m) const { return n_task_per_machine[m]; }
   unsigned NumTaskOfJob(unsigned j) const { return n_task_per_Job[j]; }
-
+  vector<tuple<unsigned,unsigned,unsigned>> TasksOfMachine(unsigned m) const { return tasks_of_machine[m]; }
+  
 protected:
   // Insert your data members
   unsigned n_Jobs;
@@ -38,6 +39,7 @@ protected:
 
   vector<unsigned> n_task_per_Job;
   vector<unsigned> n_task_per_machine;
+  vector<vector<tuple<unsigned,unsigned,unsigned>>> tasks_of_machine;
   //tasks[i].size();//number of task of job i;
 };
 

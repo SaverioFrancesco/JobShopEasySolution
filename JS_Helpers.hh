@@ -4,6 +4,7 @@
 
 #include "JS_Basics.hh"
 #include <easylocal/easylocal.hh>
+#include <algorithm>
 
 
 using namespace EasyLocal::Core;

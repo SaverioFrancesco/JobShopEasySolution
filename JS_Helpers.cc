@@ -40,8 +40,15 @@ JS_StateManager::JS_StateManager(const JS_Input & pin)
 // initial state builder (random rooms)
 void JS_StateManager::RandomState(JS_State& st) 
 {
-// Insert the code that creates a random state in object st
-	throw logic_error("JS_StateManager::RandomState not implemented yet");	
+  // Insert the code that creates a random state in object st
+	st.Reset();
+  for (unsigned m = 0; m < in.NumMachines(); ++m)
+  {
+    vector<tuple<unsigned,unsigned,unsigned>> tmp;
+    tmp = in.TasksOfMachine(m);
+    random_shuffle(tmp.begin(), tmp.end());
+    st.SetTasksOfMachine(m, tmp);
+  }
 } 
 
 bool JS_StateManager::CheckConsistency(const JS_State& st) const

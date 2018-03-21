@@ -21,6 +21,18 @@ JS_State::JS_State(const JS_Input &my_in)
     }
 }
 
+void JS_State::Reset()
+{
+  for (unsigned i = 0; i < in.NumJobs(); ++i)
+    for (unsigned j = 0; j < in.NumTaskOfJob(i); ++j)
+      disjuntive_graphs[i][j] = make_tuple(0, 0, 0);
+}
+
+void JS_State::SetTasksOfMachine(unsigned m, vector<tuple<unsigned,unsigned,unsigned>> v)
+{
+  disjuntive_graphs[m] = v; 
+}
+
 JS_State& JS_State::operator=(const JS_State& st)
 {
   // Insert the code that copies all data structures of the
