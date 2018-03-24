@@ -27,15 +27,15 @@ protected:
 
 };
 
-class JS_Move
+class SwapJS
 {
-  friend bool operator==(const JS_Move& m1, const JS_Move& m2);
-  friend bool operator!=(const JS_Move& m1, const JS_Move& m2);
-  friend bool operator<(const JS_Move& m1, const JS_Move& m2);
-  friend ostream& operator<<(ostream& os, const JS_Move& c);
-  friend istream& operator>>(istream& is, JS_Move& c);
+  friend bool operator==(const SwapJS& m1, const SwapJS& m2);
+  friend bool operator!=(const SwapJS& m1, const SwapJS& m2);
+  friend bool operator<(const SwapJS& m1, const SwapJS& m2);
+  friend ostream& operator<<(ostream& os, const SwapJS& c);
+  friend istream& operator>>(istream& is, SwapJS& c);
  public:
-  JS_Move(unsigned m_id, unsigned pos1, unsigned po2);
+  SwapJS(unsigned m_id = 0, unsigned pos1 = 0, unsigned po2 = 0);
   unsigned m, p1, p2;
 };
 #endif

@@ -43,40 +43,40 @@ protected:
 }; 
 
 /***************************************************************************
- * JS_Move Neighborhood Explorer:
+ * SwapJS Neighborhood Explorer:
  ***************************************************************************/
 
-class JS_MoveDeltaCostComponent1
-  : public DeltaCostComponent<JS_Input,JS_State,JS_Move>
+class SwapJSDeltaCostComponent1
+  : public DeltaCostComponent<JS_Input,JS_State,SwapJS>
 {
 public:
-  JS_MoveDeltaCostComponent1(const JS_Input & in, JS_CostComponent1& cc) 
-    : DeltaCostComponent<JS_Input,JS_State,JS_Move>(in,cc,"JS_MoveDeltaCostComponent1") 
+  SwapJSDeltaCostComponent1(const JS_Input & in, JS_CostComponent1& cc) 
+    : DeltaCostComponent<JS_Input,JS_State,SwapJS>(in,cc,"SwapJSDeltaCostComponent1") 
   {}
-  int ComputeDeltaCost(const JS_State& st, const JS_Move& mv) const;
+  int ComputeDeltaCost(const JS_State& st, const SwapJS& mv) const;
 };
 
-class JS_MoveDeltaCostComponent2
-  : public DeltaCostComponent<JS_Input,JS_State,JS_Move>
+class SwapJSDeltaCostComponent2
+  : public DeltaCostComponent<JS_Input,JS_State,SwapJS>
 {
 public:
-  JS_MoveDeltaCostComponent2(const JS_Input & in, JS_CostComponent2& cc) 
-    : DeltaCostComponent<JS_Input,JS_State,JS_Move>(in,cc,"JS_MoveDeltaCostComponent2") 
+  SwapJSDeltaCostComponent2(const JS_Input & in, JS_CostComponent2& cc) 
+    : DeltaCostComponent<JS_Input,JS_State,SwapJS>(in,cc,"SwapJSDeltaCostComponent2") 
   {}
-  int ComputeDeltaCost(const JS_State& st, const JS_Move& mv) const;
+  int ComputeDeltaCost(const JS_State& st, const SwapJS& mv) const;
 };
 
-class JS_MoveNeighborhoodExplorer
-  : public NeighborhoodExplorer<JS_Input,JS_State,JS_Move> 
+class SwapJSNeighborhoodExplorer
+  : public NeighborhoodExplorer<JS_Input,JS_State,SwapJS> 
 {
 public:
-  JS_MoveNeighborhoodExplorer(const JS_Input & pin, StateManager<JS_Input,JS_State>& psm)  
-    : NeighborhoodExplorer<JS_Input,JS_State,JS_Move>(pin, psm, "JS_MoveNeighborhoodExplorer") {} 
-  void RandomMove(const JS_State&, JS_Move&) const throw(EmptyNeighborhood);          
-  bool FeasibleMove(const JS_State&, const JS_Move&) const;  
-  void MakeMove(JS_State&,const JS_Move&) const;             
-  void FirstMove(const JS_State&,JS_Move&) const throw(EmptyNeighborhood);  
-  bool NextMove(const JS_State&,JS_Move&) const;   
+  SwapJSNeighborhoodExplorer(const JS_Input & pin, StateManager<JS_Input,JS_State>& psm)  
+    : NeighborhoodExplorer<JS_Input,JS_State,SwapJS>(pin, psm, "SwapJSNeighborhoodExplorer") {} 
+  void RandomMove(const JS_State&, SwapJS&) const throw(EmptyNeighborhood);          
+  bool FeasibleMove(const JS_State&, const SwapJS&) const;  
+  void MakeMove(JS_State&,const SwapJS&) const;             
+  void FirstMove(const JS_State&,SwapJS&) const throw(EmptyNeighborhood);  
+  bool NextMove(const JS_State&,SwapJS&) const;   
 protected:
 };
 

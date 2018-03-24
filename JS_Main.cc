@@ -49,12 +49,12 @@ int main(int argc, const char* argv[])
   JS_CostComponent1 cc1(in, 1, true);
   JS_CostComponent2 cc2(in, 1, true);
  
-  JS_MoveDeltaCostComponent1 dcc1(in, cc1);
-  JS_MoveDeltaCostComponent2 dcc2(in, cc2);
+  SwapJSDeltaCostComponent1 dcc1(in, cc1);
+  SwapJSDeltaCostComponent2 dcc2(in, cc2);
 
   // helpers
   JS_StateManager JS_sm(in);
-  JS_MoveNeighborhoodExplorer JS_nhe(in, JS_sm);
+  SwapJSNeighborhoodExplorer JS_nhe(in, JS_sm);
 
   JS_OutputManager JS_om(in);
   
@@ -67,13 +67,13 @@ int main(int argc, const char* argv[])
   JS_nhe.AddDeltaCostComponent(dcc2);
   
   // runners
-  HillClimbing<JS_Input, JS_State, JS_Move> JS_hc(in, JS_sm, JS_nhe, "JS_MoveHillClimbing");
-  SteepestDescent<JS_Input, JS_State, JS_Move> JS_sd(in, JS_sm, JS_nhe, "JS_MoveSteepestDescent");
-  SimulatedAnnealing<JS_Input, JS_State, JS_Move> JS_sa(in, JS_sm, JS_nhe, "JS_MoveSimulatedAnnealing");
+  HillClimbing<JS_Input, JS_State, SwapJS> JS_hc(in, JS_sm, JS_nhe, "SwapJSHillClimbing");
+  SteepestDescent<JS_Input, JS_State, SwapJS> JS_sd(in, JS_sm, JS_nhe, "SwapJSSteepestDescent");
+  SimulatedAnnealing<JS_Input, JS_State, SwapJS> JS_sa(in, JS_sm, JS_nhe, "SwapJSSimulatedAnnealing");
 
   // tester
   Tester<JS_Input, JS_Output, JS_State> tester(in,JS_sm,JS_om);
-  MoveTester<JS_Input, JS_Output, JS_State, JS_Move> swap_move_test(in,JS_sm,JS_om,JS_nhe, "JS_Move move", tester); 
+  MoveTester<JS_Input, JS_Output, JS_State, SwapJS> swap_move_test(in,JS_sm,JS_om,JS_nhe, "SwapJS move", tester); 
 
   SimpleLocalSearch<JS_Input, JS_Output, JS_State> JS_solver(in, JS_sm, JS_om, "JS solver");
   if (!CommandLineParameters::Parse(argc, argv, true, false))

@@ -87,42 +87,46 @@ void JS_OutputManager::OutputState(const JS_State& st, JS_Output& JS) const
 
 
 /*****************************************************************************
- * JS_Move Neighborhood Explorer Methods
+ * SwapJS Neighborhood Explorer Methods
  *****************************************************************************/
 
 // initial move builder
-void JS_MoveNeighborhoodExplorer::RandomMove(const JS_State& st, JS_Move& mv) const  throw(EmptyNeighborhood)
+void SwapJSNeighborhoodExplorer::RandomMove(const JS_State& st, SwapJS& mv) const  throw(EmptyNeighborhood)
 {
   // insert the code that writes a random move on mv in state st
-	throw logic_error("JS_MoveNeighborhoodExplorer::RandomMove not implemented yet");	
+	throw logic_error("SwapJSNeighborhoodExplorer::RandomMove not implemented yet");	
 } 
 
 // check move feasibility
-bool JS_MoveNeighborhoodExplorer::FeasibleMove(const JS_State& st, const JS_Move& mv) const
+bool SwapJSNeighborhoodExplorer::FeasibleMove(const JS_State& st, const SwapJS& mv) const
 {
   // Insert the code that check is move mv is legal in state st 
   // (return true if legal, false otherwise)
-	throw logic_error("JS_MoveNeighborhoodExplorer::FeasibleMove not implemented yet");	
+	throw logic_error("SwapJSNeighborhoodExplorer::FeasibleMove not implemented yet");	
   return true;
 } 
 
 // update the state according to the move 
-void JS_MoveNeighborhoodExplorer::MakeMove(JS_State& st, const JS_Move& mv) const
+void SwapJSNeighborhoodExplorer::MakeMove(JS_State& st, const SwapJS& mv) const
 {
   // Insert the code that modify the state st based on the application of move mv
-	throw logic_error("JS_MoveNeighborhoodExplorer::MakeMove not implemented yet");	
+  vector<tuple<unsigned,unsigned,unsigned>> tmpv = st.GetTasksOfMachine(mv.m);
+  tuple<unsigned,unsigned,unsigned> tmpt = tmpv[mv.p1];
+  tmpv[mv.p1] = tmpv[mv.p2];
+  tmpv[mv.p2] = tmpt;
+  st.SetTasksOfMachine(mv.m, tmpv);
 }  
 
-void JS_MoveNeighborhoodExplorer::FirstMove(const JS_State& st, JS_Move& mv) const  throw(EmptyNeighborhood)
+void SwapJSNeighborhoodExplorer::FirstMove(const JS_State& st, SwapJS& mv) const  throw(EmptyNeighborhood)
 {
   // Insert the code the generate the first move in the neighborhood and store it in mv
   mv.m = 0;
   mv.p1 = 0;
   mv.p2 = 1;
-	throw logic_error("JS_MoveNeighborhoodExplorer::FirstMove CHECK");	
+	throw logic_error("SwapJSNeighborhoodExplorer::FirstMove CHECK");	
 }
 
-bool JS_MoveNeighborhoodExplorer::NextMove(const JS_State& st, JS_Move& mv) const
+bool SwapJSNeighborhoodExplorer::NextMove(const JS_State& st, SwapJS& mv) const
 {
   // Insert the code that generate the move that follows mv in the neighborhood, and writes
   // it back in mv. Return false if mv is already the last move. 
@@ -150,19 +154,19 @@ bool JS_MoveNeighborhoodExplorer::NextMove(const JS_State& st, JS_Move& mv) cons
   return false;
 }
 
-int JS_MoveDeltaCostComponent1::ComputeDeltaCost(const JS_State& st, const JS_Move& mv) const
+int SwapJSDeltaCostComponent1::ComputeDeltaCost(const JS_State& st, const SwapJS& mv) const
 {
   int cost = 0;
   // Insert the code that computes the delta cost of component 1 for move mv in state st
-	throw logic_error("JS_MoveDeltaCostComponent1::ComputeDeltaCost not implemented yet");	
+	throw logic_error("SwapJSDeltaCostComponent1::ComputeDeltaCost not implemented yet");	
   return cost;
 }
           
-int JS_MoveDeltaCostComponent2::ComputeDeltaCost(const JS_State& st, const JS_Move& mv) const
+int SwapJSDeltaCostComponent2::ComputeDeltaCost(const JS_State& st, const SwapJS& mv) const
 {
   int cost = 0;
   // Insert the code that computes the delta cost of component 1 for move mv in state st
-	throw logic_error("JS_MoveDeltaCostComponent2::ComputeDeltaCost not implemented yet");	
+	throw logic_error("SwapJSDeltaCostComponent2::ComputeDeltaCost not implemented yet");	
   return cost;
 }
 

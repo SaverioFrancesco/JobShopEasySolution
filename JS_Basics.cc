@@ -80,7 +80,7 @@ ostream& operator<<(ostream& os, const JS_State& st)
   return os;
 }
 
-JS_Move::JS_Move(unsigned m_id, unsigned pos1, unsigned pos2)
+SwapJS::SwapJS(unsigned m_id, unsigned pos1, unsigned pos2)
 {
   // Insert the code that initialize the move
   m = m_id;
@@ -88,19 +88,19 @@ JS_Move::JS_Move(unsigned m_id, unsigned pos1, unsigned pos2)
   p2 = pos2;
 }
 
-bool operator==(const JS_Move& mv1, const JS_Move& mv2)
+bool operator==(const SwapJS& mv1, const SwapJS& mv2)
 {
   // Insert the code that checks if two moves are identical
   return mv1.m == mv2.m && mv1.p1 == mv2.p1 && mv1.p2 == mv2.p2;
 }
 
-bool operator!=(const JS_Move& mv1, const JS_Move& mv2)
+bool operator!=(const SwapJS& mv1, const SwapJS& mv2)
 {
   // Insert the code that checks if two moves are different
   return ! (mv1 == mv2);
 }
 
-bool operator<(const JS_Move& mv1, const JS_Move& mv2)
+bool operator<(const SwapJS& mv1, const SwapJS& mv2)
 {
   // Insert the code that checks if one move precedes another one
   // (in any selected order)
@@ -109,7 +109,7 @@ bool operator<(const JS_Move& mv1, const JS_Move& mv2)
     || (mv1.m == mv2.m && mv1.p1 == mv2.p1 && mv1.p2 < mv2.p2));
 }
 
-istream& operator>>(istream& is, JS_Move& mv)
+istream& operator>>(istream& is, SwapJS& mv)
 {
   // Insert the code that read a move
   char tmp;
@@ -117,7 +117,7 @@ istream& operator>>(istream& is, JS_Move& mv)
   return is;
 }
 
-ostream& operator<<(ostream& os, const JS_Move& mv)
+ostream& operator<<(ostream& os, const SwapJS& mv)
 {
   // Insert the code that writes a move
   os << "<" << mv.m << "," << mv.p1 << "," << mv.p2 << ">";
