@@ -5,6 +5,7 @@
 #include "JS_Basics.hh"
 #include <easylocal/easylocal.hh>
 #include <algorithm>
+#include "graph.h"
 
 
 using namespace EasyLocal::Core;
@@ -12,6 +13,16 @@ using namespace EasyLocal::Core;
 /***************************************************************************
  * State Manager 
  ***************************************************************************/
+
+class JS_CostScheduling : public CostComponent<JS_Input,JS_State> 
+{
+public:
+  JS_CostScheduling(const JS_Input & in, int w, bool hard) 
+    : CostComponent<JS_Input,JS_State>(in,w,hard,"JS_CostComponent1") 
+  {}
+  int ComputeCost(const JS_State& st) const;
+  void PrintViolations(const JS_State& st, ostream& os = cout) const;
+};
 
 class JS_CostComponent1 : public CostComponent<JS_Input,JS_State> 
 {

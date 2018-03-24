@@ -1,6 +1,44 @@
 // File JS_Helpers.cc
 #include "JS_Helpers.hh"
 
+
+int JS_CostScheduling::ComputeCost(const JS_State& st) const
+{
+  unsigned cost = 0;
+  // Insert the code that computes the cost for component 1 
+  // of state st
+  std::vector<std::pair<unsigned, unsigned> > graph_vect;
+  
+  //Let's add 2 fake tasks (0 and num_Task+1?) 
+  unsigned num_Task= tot(st.in.n_task_per_Job)
+
+  for (unsigned task_id = 0; task_id < num_Task; ++task_id)
+  {
+      graph_vect.push_back(std::pair<unsigned, unsigned>(task1, task2));
+  }
+
+
+  
+
+
+  //Build the Adj List.
+  Graph::graph<unsigned,unsigned> my_graph(graph_vect);
+
+  //Compute dijkstra algo. over the graph to determinate erliyest starting times.
+
+  //Compute makespan and violations in linear time.
+
+  //throw logic_error("JS_CostComponent1::ComputeCost not implemented yet");  
+  return cost;
+}
+          
+void JS_CostScheduling::PrintViolations(const JS_State& st, ostream& os) const
+{
+  // Insert the code that prints the violations of component 1 
+  // of state st
+  throw logic_error("JS_CostComponent1::PrintViolations not implemented yet");  
+}
+
 int JS_CostComponent1::ComputeCost(const JS_State& st) const
 {
   unsigned cost = 0;
@@ -100,7 +138,11 @@ bool SwapJSNeighborhoodExplorer::FeasibleMove(const JS_State& st, const SwapJS& 
 {
   // Insert the code that check is move mv is legal in state st 
   // (return true if legal, false otherwise)
-	throw logic_error("SwapJSNeighborhoodExplorer::FeasibleMove not implemented yet");	
+
+  return mv.p1 < mv.p2; // ordine lessicografico sulle mosse, la macchina sul quale viene eseguita la mossa non conta
+
+
+	//throw logic_error("SwapJSNeighborhoodExplorer::FeasibleMove not implemented yet");	
   return true;
 } 
 
@@ -121,7 +163,7 @@ void SwapJSNeighborhoodExplorer::FirstMove(const JS_State& st, SwapJS& mv) const
   mv.m = 0;
   mv.p1 = 0;
   mv.p2 = 1;
-	throw logic_error("SwapJSNeighborhoodExplorer::FirstMove CHECK");	
+	//throw logic_error("SwapJSNeighborhoodExplorer::FirstMove CHECK");	
 }
 
 bool SwapJSNeighborhoodExplorer::NextMove(const JS_State& st, SwapJS& mv) const
