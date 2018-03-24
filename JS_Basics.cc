@@ -23,14 +23,24 @@ JS_State::JS_State(const JS_Input &my_in)
 
 void JS_State::Reset()
 {
-  for (unsigned i = 0; i < in.NumJobs(); ++i)
-    for (unsigned j = 0; j < in.NumTaskOfJob(i); ++j)
-      disjuntive_graphs[i][j] = make_tuple(0, 0, 0);
+  for (unsigned m = 0; m < in.NumMachines(); ++m)
+    for (unsigned j = 0; j < in.NumTasksOfMachine(m); ++j)
+      disjuntive_graphs[m][j] = make_tuple(0, 0, 0);
 }
 
 void JS_State::SetTasksOfMachine(unsigned m, vector<tuple<unsigned,unsigned,unsigned>> v)
 {
   disjuntive_graphs[m] = v; 
+}
+
+vector<tuple<unsigned,unsigned,unsigned>> JS_State::GetTasksOfMachine(unsigned m) const
+{
+  return disjuntive_graphs[m];
+}
+
+tuple<unsigned,unsigned,unsigned> JS_State::SelectedTask(unsigned m, unsigned p) const
+{
+  return disjuntive_graphs[m][p];
 }
 
 JS_State& JS_State::operator=(const JS_State& st)
@@ -70,44 +80,46 @@ ostream& operator<<(ostream& os, const JS_State& st)
   return os;
 }
 
-JS_Move::JS_Move()
+JS_Move::JS_Move(unsigned m_id, unsigned pos1, unsigned pos2)
 {
   // Insert the code that initialize the move
-  cerr << "JS_Move::JS_Move() not implemented yet" << endl;
+  m = m_id;
+  p1 = pos1;
+  p2 = pos2;
 }
 
 bool operator==(const JS_Move& mv1, const JS_Move& mv2)
 {
   // Insert the code that checks if two moves are identical
-  throw logic_error("operator==(const JS_Move& mv1, const JS_Move& mv2) not implemented yet");	
-  return true;
+  return mv1.m == mv2.m && mv1.p1 == mv2.p1 && mv1.p2 == mv2.p2;
 }
 
 bool operator!=(const JS_Move& mv1, const JS_Move& mv2)
 {
   // Insert the code that checks if two moves are different
-  throw logic_error("operator!=(const JS_Move& mv1, const JS_Move& mv2) not implemented yet");	
-  return true;
+  return ! (mv1 == mv2);
 }
 
 bool operator<(const JS_Move& mv1, const JS_Move& mv2)
 {
   // Insert the code that checks if one move precedes another one
   // (in any selected order)
-  throw logic_error("operator<(const JS_Move& mv1, const JS_Move& mv2) not implemented yet");	
-  return true;
+  return (mv1.m < mv2.m 
+    || (mv1.m == mv2.m && mv1.p1 < mv2.p1)
+    || (mv1.m == mv2.m && mv1.p1 == mv2.p1 && mv1.p2 < mv2.p2));
 }
 
 istream& operator>>(istream& is, JS_Move& mv)
 {
   // Insert the code that read a move
-  throw logic_error("operator>>(istream& is, JS_Move& cìmv) not implemented yet");	
+  char tmp;
+  is >> tmp >> mv.m >> tmp >> mv.p1 >> tmp >> mv.p2 >> tmp;
   return is;
 }
 
 ostream& operator<<(ostream& os, const JS_Move& mv)
 {
   // Insert the code that writes a move
-  throw logic_error("operator<<(ostream& os, const JS_Move& mv) not implemented yet");	
+  os << "<" << mv.m << "," << mv.p1 << "," << mv.p2 << ">";
   return os;
 }

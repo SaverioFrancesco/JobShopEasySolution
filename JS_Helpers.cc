@@ -72,7 +72,17 @@ void JS_OutputManager::InputState(JS_State& st, const JS_Output& JS) const
 void JS_OutputManager::OutputState(const JS_State& st, JS_Output& JS) const 
 {
   // Insert the code that "translates" a state object to an output object
-	throw logic_error("JS_OutputManager::OutputState not implemented yet");	
+  JS.Reset();
+  for (unsigned m = 0; m < in.NumMachines(); m++)
+    for (unsigned p = 0; p < in.NumTasksOfMachine(m); p++)
+    {
+      tuple<unsigned,unsigned,unsigned> task = st.SelectedTask(m, p);
+      unsigned job = get<2>(task);
+      unsigned duration = get<0>(task);
+      JS.SetStartingTime(job, task, duration, m);
+    }
+    
+	throw logic_error("JS_OutputManager::OutputState:SetStartingTime not implemented yet");	
 }
 
 
@@ -106,15 +116,38 @@ void JS_MoveNeighborhoodExplorer::MakeMove(JS_State& st, const JS_Move& mv) cons
 void JS_MoveNeighborhoodExplorer::FirstMove(const JS_State& st, JS_Move& mv) const  throw(EmptyNeighborhood)
 {
   // Insert the code the generate the first move in the neighborhood and store it in mv
-	throw logic_error("JS_MoveNeighborhoodExplorer::FirstMove not implemented yet");	
+  mv.m = 0;
+  mv.p1 = 0;
+  mv.p2 = 1;
+	throw logic_error("JS_MoveNeighborhoodExplorer::FirstMove CHECK");	
 }
 
 bool JS_MoveNeighborhoodExplorer::NextMove(const JS_State& st, JS_Move& mv) const
 {
   // Insert the code that generate the move that follows mv in the neighborhood, and writes
   // it back in mv. Return false if mv is already the last move. 
-	throw logic_error("JS_MoveNeighborhoodExplorer::NextMove not implemented yet");	
-  return true;
+  if (mv.p2 < in.NumTasksOfMachine(mv.m) - 1)
+  {
+    mv.p2++;
+    return true;
+  }
+  // then: mv.p2 == in.NumTasksOfMachine(mv.m) - 1
+  if (mv.p1 < in.NumTasksOfMachine(mv.m) - 2)
+  {
+    mv.p1++;
+    mv.p2 = mv.p1 + 1;
+    return true;
+  }
+  // then: mv.p2 == in.NumTasksOfMachine(mv.m) - 1 && mv.p1 == in.NumTasksOfMachine(mv.m) - 2
+  if (mv.m < in.NumMachines() - 1)
+  {
+    mv.m++;
+    mv.p1 = 0;
+    mv.p2 = mv.p1 + 1;
+    return true;
+  }
+  // then: mv.p2 == in.NumTasksOfMachine(mv.m) - 1 && mv.p1 == in.NumTasksOfMachine(mv.m) - 2 && mv.m == in.NumMachines() - 1
+  return false;
 }
 
 int JS_MoveDeltaCostComponent1::ComputeDeltaCost(const JS_State& st, const JS_Move& mv) const

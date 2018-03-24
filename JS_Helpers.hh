@@ -16,16 +16,18 @@ using namespace EasyLocal::Core;
 class JS_CostComponent1 : public CostComponent<JS_Input,JS_State> 
 {
 public:
-  JS_CostComponent1(const JS_Input & in, int w, bool hard) :    CostComponent<JS_Input,JS_State>(in,w,hard,"JS_CostComponent1") 
+  JS_CostComponent1(const JS_Input & in, int w, bool hard) 
+    : CostComponent<JS_Input,JS_State>(in,w,hard,"JS_CostComponent1") 
   {}
   int ComputeCost(const JS_State& st) const;
   void PrintViolations(const JS_State& st, ostream& os = cout) const;
 };
 
-class  JS_CostComponent2: public CostComponent<JS_Input,JS_State> 
+class JS_CostComponent2: public CostComponent<JS_Input,JS_State> 
 {
 public:
-  JS_CostComponent2(const JS_Input & in, int w, bool hard) : CostComponent<JS_Input,JS_State>(in,w,hard,"JS_CostComponent2") 
+  JS_CostComponent2(const JS_Input & in, int w, bool hard) 
+    : CostComponent<JS_Input,JS_State>(in,w,hard,"JS_CostComponent2") 
   {}
   int ComputeCost(const JS_State& st) const;
   void PrintViolations(const JS_State& st, ostream& os = cout) const;

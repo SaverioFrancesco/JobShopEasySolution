@@ -17,10 +17,12 @@ public:
   JS_State& operator=(const JS_State& s);
   void Reset();
   void SetTasksOfMachine(unsigned m, vector<tuple<unsigned,unsigned,unsigned>> v);
+  vector<tuple<unsigned,unsigned,unsigned>> GetTasksOfMachine(unsigned m) const;
+  tuple<unsigned,unsigned,unsigned> SelectedTask (unsigned m, unsigned p) const;
 protected:
   const JS_Input & in; 
   vector<vector<tuple<unsigned, unsigned, unsigned>>> disjuntive_graphs;
-  //given i job, starting_times[i] tells the starting times of its tasks.
+  // tuples are made by: duration of the task, machine required, job to which the task belongs
   //Graph::graph<int,int> tasks_graph(graph_vect);
 
 };
@@ -33,7 +35,8 @@ class JS_Move
   friend ostream& operator<<(ostream& os, const JS_Move& c);
   friend istream& operator>>(istream& is, JS_Move& c);
  public:
-  JS_Move();
+  JS_Move(unsigned m_id, unsigned pos1, unsigned po2);
+  unsigned m, p1, p2;
 };
 #endif
 
