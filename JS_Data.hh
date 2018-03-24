@@ -52,7 +52,6 @@ public:
   JS_Output& operator=(const JS_Output& out);
   // Insert your getters
   void Reset() { starting_times.clear(); }
-  void SetStartingTime(unsigned job, tuple<unsigned,unsigned,unsigned> task, unsigned duration, unsigned m);
 protected:
   const JS_Input& in;
   // Insert your data members

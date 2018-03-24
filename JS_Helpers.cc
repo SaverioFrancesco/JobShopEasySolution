@@ -76,13 +76,11 @@ void JS_OutputManager::OutputState(const JS_State& st, JS_Output& JS) const
   for (unsigned m = 0; m < in.NumMachines(); m++)
     for (unsigned p = 0; p < in.NumTasksOfMachine(m); p++)
     {
-      tuple<unsigned,unsigned,unsigned> task = st.SelectedTask(m, p);
-      unsigned job = get<2>(task);
-      unsigned duration = get<0>(task);
-      JS.SetStartingTime(job, task, duration, m);
+      // tuple<unsigned,unsigned,unsigned> task = st.SelectedTask(m, p);
+      // here we need to have the starting times of the tasks in such a way to fill the output object
     }
     
-	throw logic_error("JS_OutputManager::OutputState:SetStartingTime not implemented yet");	
+	throw logic_error("JS_OutputManager::OutputState TODO");	
 }
 
 

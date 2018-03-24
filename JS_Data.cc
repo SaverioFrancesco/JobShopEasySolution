@@ -120,12 +120,6 @@ JS_Output::JS_Output(const JS_Input& my_in)
   }
 }
 
-void JS_Output::SetStartingTime(unsigned job, tuple<unsigned,unsigned,unsigned> task, unsigned duration, unsigned m) 
-{
-  // TODO
-  throw logic_error ("JS_Output::SetStartingTime not implemented yet");
-}
-
 JS_Output& JS_Output::operator=(const JS_Output& out)	
 {
   // Insert the code that copies all data structures of the
