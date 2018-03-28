@@ -1,6 +1,6 @@
 // File JS_Helpers.cc
 #include "JS_Helpers.hh"
-
+#include <numeric>
 
 int JS_CostScheduling::ComputeCost(const JS_State& st) const
 {
@@ -10,23 +10,32 @@ int JS_CostScheduling::ComputeCost(const JS_State& st) const
   std::vector<std::pair<unsigned, unsigned> > graph_vect;
   
   //Let's add 2 fake tasks (0 and num_Task+1?) 
-  unsigned num_Task= tot(st.in.n_task_per_Job)
+  unsigned num_Task = st.get_n_task_per_Job();
 
-  for (unsigned task_id = 0; task_id < num_Task; ++task_id)
+  for (unsigned task_id = 1; task_id <= num_Task; ++task_id)
   {
-      graph_vect.push_back(std::pair<unsigned, unsigned>(task1, task2));
+      graph_vect.push_back(std::pair<unsigned, unsigned>(0, task_id));// questo arco deve essere etichettato con il peso del tempo di relise di  task_id
   }
 
+  //inserisco un arco per ogni task al successivo (dello stesso job). Il costo è la durata del primo task.
 
   
+  //inserisco un arco per ogni task di fine job che conduce  a num_Task+1 etichettato con 0.
+
+
+  //per ogni macchina inserico una cricca di archi orientati in base all'attuale permutazione.
+
 
 
   //Build the Adj List.
   Graph::graph<unsigned,unsigned> my_graph(graph_vect);
 
+  
   //Compute dijkstra algo. over the graph to determinate erliyest starting times.
 
+  
   //Compute makespan and violations in linear time.
+  
 
   //throw logic_error("JS_CostComponent1::ComputeCost not implemented yet");  
   return cost;

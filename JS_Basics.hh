@@ -10,6 +10,7 @@
 
 class JS_State
 {  
+  friend class JS_Helpers;
   friend ostream& operator<<(ostream& os, const JS_State& st);
   friend bool operator==(const JS_State& st1, const JS_State& st2);
 public:
@@ -19,6 +20,11 @@ public:
   void SetTasksOfMachine(unsigned m, vector<tuple<unsigned,unsigned,unsigned>> v);
   vector<tuple<unsigned,unsigned,unsigned>> GetTasksOfMachine(unsigned m) const;
   tuple<unsigned,unsigned,unsigned> SelectedTask (unsigned m, unsigned p) const;
+  unsigned get_n_task_per_Job()const {
+                  unsigned num_Task;
+                  for (auto& n : (in.n_task_per_Job))
+                    num_Task += n; 
+                  return num_Task;};
 protected:
   const JS_Input & in; 
   vector<vector<tuple<unsigned, unsigned, unsigned>>> disjuntive_graphs;
